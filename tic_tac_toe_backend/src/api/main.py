@@ -32,7 +32,7 @@ app.include_router(leaderboard_router)
 
 @app.on_event("startup")
 def startup():
-    # Ensure DB tables exist at startup
+    # Ensure DB tables exist at startup (all persistent models mapped to SQLite)
     ModelsBase.metadata.create_all(bind=engine)
 
 @app.get("/", summary="Health Check")

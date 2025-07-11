@@ -3,8 +3,10 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
+# Persistent SQLite DB (overridable by env)
 DATABASE_URL = os.environ.get("SQLITE_URL", "sqlite:///./tic_tac_toe.sqlite3")
 
+# Singleton SQLAlchemy engine/session/base for persistence
 engine = create_engine(
     DATABASE_URL,
     connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
@@ -12,11 +14,11 @@ engine = create_engine(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-# Dependency for getting DB session in FastAPI
+# PUBLIC_INTERFACE
 def get_db():
-    # PUBLIC_INTERFACE
     """
     Dependency to get a SQLAlchemy session, closes automatically.
+    Used by FastAPI dependency injection for persistent DB access.
     Yields:
         db (Session): SQLAlchemy session.
     """

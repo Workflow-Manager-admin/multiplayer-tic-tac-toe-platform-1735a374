@@ -28,7 +28,14 @@ def login(data: UserLogin, response: Response, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.username == data.username).first()
     if not user or not verify_password(data.password, user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid username or password")
-    response.set_cookie(key="user_id", value=str(user.id), httponly=True)
+    # Simple persistent session cookie (can set secure and expiry as needed)
+    response.set_cookie(
+        key="user_id",
+        value=str(user.id),
+        httponly=True,
+        samesite="lax",
+        max_age=7*24*3600  # 1 week
+    )
     return user
 
 # PUBLIC_INTERFACE

@@ -1,11 +1,11 @@
 from datetime import datetime
 from enum import Enum
 from sqlalchemy import (Column, Integer, String, DateTime, ForeignKey, Enum as SAEnum)
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List
 
-Base = declarative_base()
+from src.api.database import Base
 
 # SQLAlchemy Models
 
