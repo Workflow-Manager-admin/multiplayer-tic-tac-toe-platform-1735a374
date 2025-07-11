@@ -1,0 +1,4 @@
+{
+    "command": "source venv/bin/activate && uvicorn src.api.main:app --host <host> --port <port>",
+    "working_directory": "/tmp/kavia/workspace/code-generation/multiplayer-tic-tac-toe-platform-1735a374/tic_tac_toe_backend"
+}
